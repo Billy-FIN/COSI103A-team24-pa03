@@ -45,3 +45,15 @@ class Transaction():
         con.close()
         return [toDict(t) for t in tuples]
     
+    def delete(self,itemID):
+        """
+        delete a transaction by a given item #
+
+        @Author: Qiuyang Wang
+        """
+        return self.runQuery("DELETE FROM transactions WHERE item #=(?)",(itemID,))
+    
+    
+    
+
+    

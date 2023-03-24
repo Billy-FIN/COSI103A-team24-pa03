@@ -18,12 +18,18 @@ def print_usage():
     '''
     print('''usage:
             tr quit
+                expected argument: none
+                example: tr quit
             tr show
             tr add
             tr delete
+                expected argument: item #
+                example: tr delete 1
             tr summary_by_date
             tr summary_by_month
             tr summary_by_year
+                expected argument: the year from  its date
+                example: tr delete 2023
             tr summary_by_category
             tr print_menu
             '''
@@ -54,7 +60,7 @@ def process_args(args):
     
     @Author: Qiuyang Wang
     '''
-    transaction_command = Transaction()
+    transaction = Transaction()
     if args == []:
         print_usage()
     elif args[0] == "quit":
@@ -65,6 +71,7 @@ def process_args(args):
 
     elif args[0] == "delete":
 
+        transaction.delete(args[1])
     elif args[0] == "summary_by_date":
 
     elif args[0] == "summary_by_month":
