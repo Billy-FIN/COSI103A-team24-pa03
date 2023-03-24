@@ -16,17 +16,27 @@ import sqlite3
 import os
 
 def toDict(t):
-    ''' t is a tuple (item #, amount, category, date, description)'''
+    '''
+    t is a tuple (item #, amount, category, date, description)
+    
+    @Author: Qiuyang Wang
+    '''
     print('t='+str(t))
-    todo = {'rowid':t[0], 'title':t[1], 'desc':t[2], 'completed':t[3]}
-    return todo
+    transaction = {'item #':t[0], 'amount':t[1], 'category':t[2], 'date':t[3], 'description':t[4]}
+    return transaction
 
 class Transaction():
+    """
+    @Author: Qiuyang Wang
+    """
     def __init__(self):
         self.runQuery('''CREATE TABLE IF NOT EXISTS transactions
-                    ('item #', 'amount', 'category', 'date', 'description')''',())
+                    (item # text, amount int, 'category text, date text, description text)''',())
     
     def runQuery(self,query,tuple):
+        """
+        @Author: Qiuyang Wang
+        """
         con= sqlite3.connect('transactions.db')
         cur = con.cursor() 
         cur.execute(query,tuple)
@@ -34,3 +44,4 @@ class Transaction():
         con.commit()
         con.close()
         return [toDict(t) for t in tuples]
+    

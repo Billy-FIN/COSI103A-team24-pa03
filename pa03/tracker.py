@@ -9,42 +9,90 @@ This program offers the user the following options and makes calls to the Transa
 from transaction import Transaction
 import sys
 
-# here are some helper functions ...
 
 def print_usage():
-    ''' print an explanation of how to use this command '''
-    print('''usage:
-            
-            '''
-            )
+    ''' 
+    print an explanation of how to use this command 
 
-def print_todos(transactions):
-    ''' print the todo items '''
-    if len(transactions)==0:
-        print('no tasks to print')
+    @Author: Qiuyang Wang
+    '''
+    print('''usage:
+            tr quit
+            tr show
+            tr add
+            tr delete
+            tr summary_by_date
+            tr summary_by_month
+            tr summary_by_year
+            tr summary_by_category
+            tr print_menu
+            '''
+          )
+
+
+def print_transactions(transactions):
+    ''' 
+    print the transactions in a nice format
+    
+    @Author: Qiuyang Wang
+    '''
+    if len(transactions) == 0:
+        print('no transaction to print')
         return
     print('\n')
-    print("%-10s %-10s %-30s %-10s"%('item #','title','desc','completed'))
+    print("%-10s %-10s %-10s %-10s %-30s" % ('item #', 'amount', 'category', 'date', 'description'))
     print('-'*40)
     for item in transactions:
-        values = tuple(item.values()) #(item #, amount, category, date, description)
-        print("%-10s %-10s %-30s %2d"%values)
+        # (item #, amount, category, date, description)
+        values = tuple(item.values())
+        print("%-10s %10d %-10s %-10s %-30s" % values)
+
 
 def process_args(args):
-    return
+    '''
+    examine args and make appropriate calls to Transaction
+    
+    @Author: Qiuyang Wang
+    '''
+    transaction_command = Transaction()
+    if args == []:
+        print_usage()
+    elif args[0] == "quit":
+        sys.exit()
+    elif args[0] == "show":
+        
+    elif args[0] == "add":
 
-def toplevel():
-    ''' read the command args and process them'''
-    if len(sys.argv)==1:
-        # they didn't pass any arguments, 
+    elif args[0] == "delete":
+
+    elif args[0] == "summary_by_date":
+
+    elif args[0] == "summary_by_month":
+
+    elif args[0] == "summary_by_year":
+
+    elif args[0] == "summary_by_category":
+
+    elif args[0] == "print_menu":
+        print_usage()
+    else:
+        print(args,"is not implemented")
+        print_usage()
+
+
+def start():
+    ''' 
+    read the command args and process them
+
+    @Author: Qiuyang Wang
+    '''
+    if len(sys.argv) == 1:
+        # they didn't pass any arguments,
         # so prompt for them in a loop
         print_usage()
         args = []
-        while args!=['']:
+        while args != ['']:
             args = input("command> ").split(' ')
-            if args[0]=='add':
-                # join everyting after the name as a string
-                args = ['add',args[1]," ".join(args[2:])]
             process_args(args)
             print('-'*40+'\n'*3)
     else:
@@ -53,6 +101,5 @@ def toplevel():
         process_args(args)
         print('-'*40+'\n'*3)
 
-    
 
-toplevel()
+start()
