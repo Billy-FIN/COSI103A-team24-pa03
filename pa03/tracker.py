@@ -39,14 +39,15 @@ def print_usage():
 def print_transactions(transactions):
     ''' 
     print the transactions in a nice format
-    
+
     @Author: Qiuyang Wang
     '''
     if len(transactions) == 0:
         print('no transaction to print')
         return
     print('\n')
-    print("%-10s %-10s %-10s %-10s %-30s" % ('item #', 'amount', 'category', 'date', 'description'))
+    print("%-10s %-10s %-10s %-10s %-30s" %
+          ('item #', 'amount', 'category', 'date', 'description'))
     print('-'*40)
     for item in transactions:
         # (item #, amount, category, date, description)
@@ -57,7 +58,7 @@ def print_transactions(transactions):
 def process_args(args):
     '''
     examine args and make appropriate calls to Transaction
-    
+
     @Author: Qiuyang Wang
     '''
     transaction = Transaction()
@@ -66,24 +67,23 @@ def process_args(args):
     elif args[0] == "quit":
         sys.exit()
     elif args[0] == "show":
-        
+        transaction.show()
     elif args[0] == "add":
-
+        transaction.add(args[1])
     elif args[0] == "delete":
-
         transaction.delete(args[1])
     elif args[0] == "summary_by_date":
-
+        transaction.sumByDate(args[1])
     elif args[0] == "summary_by_month":
-
+        transaction.sumByMonth(args[1])
     elif args[0] == "summary_by_year":
-
+        transaction.sumByYear(args[1])
     elif args[0] == "summary_by_category":
-
+        transaction.sumByCate(args[1])
     elif args[0] == "print_menu":
         print_usage()
     else:
-        print(args,"is not implemented")
+        print(args, "is not implemented")
         print_usage()
 
 
