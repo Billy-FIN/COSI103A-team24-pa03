@@ -69,7 +69,12 @@ def process_args(args):
     elif args[0] == "show":
         transaction.show()
     elif args[0] == "add":
-        transaction.add(args[1])
+        if len(args) != 6:
+            print_usage()
+        else:
+            trans = {'item': args[1], 'amount': args[2],
+                     'category': args[3], 'date': args[4], 'description': args[5]}
+            transaction.add(trans)
     elif args[0] == "delete":
         transaction.delete(args[1])
     elif args[0] == "summary_by_date":

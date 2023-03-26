@@ -23,7 +23,7 @@ def toDict(t):
     @Author: Qiuyang Wang
     '''
     print('t='+str(t))
-    transaction = {'item #': t[0], 'amount': t[1],
+    transaction = {'item': t[0], 'amount': t[1],
                    'category': t[2], 'date': t[3], 'description': t[4]}
     return transaction
 
@@ -35,7 +35,7 @@ class Transaction():
 
     def __init__(self):
         self.runQuery('''CREATE TABLE IF NOT EXISTS transactions
-                    (item text, amount int, 'category text, date text, description text)''', ())
+                    (item text, amount int, category text, date text, description text)''', ())
 
     def runQuery(self, query, tuple):
         """
