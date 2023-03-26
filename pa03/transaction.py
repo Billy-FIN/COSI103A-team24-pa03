@@ -35,7 +35,7 @@ class Transaction():
 
     def __init__(self):
         self.runQuery('''CREATE TABLE IF NOT EXISTS transactions
-                    (item # text, amount int, 'category text, date text, description text)''', ())
+                    (item text, amount int, 'category text, date text, description text)''', ())
 
     def runQuery(self, query, tuple):
         """
@@ -55,13 +55,13 @@ class Transaction():
 
         @Author: Qiuyang Wang
         """
-        return self.runQuery("DELETE FROM transactions WHERE item #=(?)", (itemID,))
+        return self.runQuery("DELETE FROM transactions WHERE item=(?)", (itemID,))
 
     def show(self):
         return self.runQuery("SELECT * FROM transactions", ())
 
     def add(self, item):
-        return self.runQuery("INSERT INTO transactions VALUES(?,?,?,?,?)", (item['item #'], item['amount'], item['category'], item['date'], item['description'],))
+        return self.runQuery("INSERT INTO transactions VALUES(?,?,?,?,?)", (item['item'], item['amount'], item['category'], item['date'], item['description'],))
 
     def sumByDate(self, date):
         q = self.show()
@@ -93,4 +93,4 @@ class Transaction():
         return returnQ
 
     def sumByCate(self, category):
-        return self.runQuery("SELECT item #, amount, date, description FROM transactions where category=(?)", (category,))
+        return self.runQuery("SELECT item, amount, date, description FROM transactions where category=(?)", (category,))
