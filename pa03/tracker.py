@@ -90,7 +90,7 @@ def process_args(args):
             print_usage()
         else:
             trans = {'itemID': args[2], 'amount': args[3],
-                     'category': args[4], 'date': args[5], 'description': args[6]}
+                     'category': args[4], 'date': args[5], 'description': desc.rstrip()}
             rs = transaction.add(trans)
             if (rs == "error"):
                 print("Please follow the format!")

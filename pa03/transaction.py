@@ -104,7 +104,7 @@ class Transaction():
         #     if (entry['date'][4:] == year):
         #         returnQ.append(entry)
         # return returnQ
-        return self.runQuery("SELECT itemD, amount, category, description FROM transactions GROUP BY year;")
+        return self.runQuery("SELECT itemID, amount, category, description FROM transactions GROUP BY year;")
 
     def sumByCate(self, category):
         return self.runQuery("SELECT itemID, amount, description FROM transactions WHERE category=(?)", (category,))
