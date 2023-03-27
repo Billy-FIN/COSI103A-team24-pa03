@@ -27,6 +27,6 @@ Your code has been rated at 9.70/10 (previous run: 9.70/10, +0.00)
 
 ## Running tracker.py
 
-<img alt="console log 1" src="img/console1.jpg">
-<img alt="console log 2" src="img/console2.jpg">
-<img alt="console log 3" src="img/console3.jpg">
+![console log 1](img/console1.jpg)
+![console log 2](img/console2.jpg)
+![console log 3](img/console3.jpg)
