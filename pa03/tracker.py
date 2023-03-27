@@ -79,11 +79,14 @@ def process_args(args):
     elif args[0] == "show":
         print_transactions(transaction.show())
     elif args[0] == "add":
-        if len(args) != 6:
+        if len(args) < 6:
             print_usage()
         else:
+            desc = ""
+            for i in range(5, len(args)):
+                desc += args[i] + " "
             trans = {'itemID': args[1], 'amount': args[2],
-                     'category': args[3], 'date': args[4], 'description': args[5]}
+                     'category': args[3], 'date': args[4], 'description': desc.rstrip()}
             rs = transaction.add(trans)
             if (rs == "error"):
                 print_usage()
