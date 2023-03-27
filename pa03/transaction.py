@@ -69,7 +69,10 @@ class Transaction():
 
     def add(self, item):
         dateLs = item['date'].split("/")
-        return self.runQuery("INSERT INTO transactions VALUES(?,?,?,?,?,?,?);", (item['itemID'], item['amount'], item['category'], int(dateLs[1]), int(dateLs[0]), int(dateLs[2]), item['description'],))
+        if (len(dateLs) < 3):
+            return "error"
+        else:
+            return self.runQuery("INSERT INTO transactions VALUES(?,?,?,?,?,?,?);", (item['itemID'], item['amount'], item['category'], int(dateLs[1]), int(dateLs[0]), int(dateLs[2]), item['description'],))
 
     def sumByDate(self):
         # q = self.show()
@@ -81,7 +84,7 @@ class Transaction():
         #         returnQ.append(entry)
         # return returnQ
 
-    def sumByMonth(self, month):
+    def sumByMonth(self):
         # q = self.runQuery(
         #     "SELECT item #, amount, category, description FROM transactions where date=(?)", (date,))
         # q = self.show()
@@ -93,7 +96,7 @@ class Transaction():
         # return returnQ
         return self.runQuery("SELECT item #, amount, category, description FROM transactions GROUP BY month;")
 
-    def sumByYear(self, year):
+    def sumByYear(self):
         # q = self.runQuery(
         #     "SELECT item #, amount, category, description FROM transactions where date=(?)", (date,))
         # q = self.show()
