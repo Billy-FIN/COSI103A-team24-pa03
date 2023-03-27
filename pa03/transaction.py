@@ -22,7 +22,6 @@ def toDict(t):
 
     @Author: Qiuyang Wang
     '''
-    print('t='+str(t))
     transaction = {'itemID': t[0], 'amount': t[1],
                    'category': t[2], 'day': t[3], 'month': t[4], 'year': t[5], 'description': t[6]}
     return transaction
@@ -77,7 +76,7 @@ class Transaction():
     def sumByDate(self):
         # q = self.show()
 
-        return self.runQuery("SELECT item #, amount, category, description FROM transactions GROUP BY date;")
+        return self.runQuery("SELECT itemID, amount, category, description FROM transactions GROUP BY date;")
         # returnQ = []
         # for entry in q:
         #     if (entry['date'][2:4] == date):
@@ -94,7 +93,7 @@ class Transaction():
         #     if (entry['date'][:2] == month):
         #         returnQ.append(entry)
         # return returnQ
-        return self.runQuery("SELECT item #, amount, category, description FROM transactions GROUP BY month;")
+        return self.runQuery("SELECT itemID, amount, category, description FROM transactions GROUP BY month;")
 
     def sumByYear(self):
         # q = self.runQuery(
@@ -105,7 +104,7 @@ class Transaction():
         #     if (entry['date'][4:] == year):
         #         returnQ.append(entry)
         # return returnQ
-        return self.runQuery("SELECT item #, amount, category, description FROM transactions GROUP BY year;")
+        return self.runQuery("SELECT itemD, amount, category, description FROM transactions GROUP BY year;")
 
     def sumByCate(self, category):
-        return self.runQuery("SELECT itemID, amount, date, description FROM transactions WHERE category=(?)", (category,))
+        return self.runQuery("SELECT itemID, amount, description FROM transactions WHERE category=(?)", (category,))

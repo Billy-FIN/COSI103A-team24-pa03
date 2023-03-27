@@ -19,13 +19,13 @@ def print_usage():
     print('''usage:
             tr quit
                 expected argument: none
-                example: tr quit
+                example: quit
             tr show
                 expected argument: none
                 example: tr show
             tr add
                 expected argument: item #, amount, category, date(in the form of MM/DD/YYYY), description, separated by space
-                example: tr add 1 100 food "Some food"
+                example: tr add 1 100 food 1/1/2022 "Some food"
             tr delete
                 expected argument: item #
                 example: tr delete 1
@@ -39,7 +39,11 @@ def print_usage():
                 expected argument: none
                 example: tr summary_by_year
             tr summary_by_category
+                expected argument: none
+                example: tr summary_by_category
             tr print_menu
+                expected argument: none
+                example: tr print_menu
             '''
           )
 
@@ -62,7 +66,7 @@ def print_transactions(transactions):
         date = str(item['month'])+"/"+str(item['day'])+"/"+str(item['year'])
         values = (item['itemID'], item['amount'],
                   item['category'], date, item['description'])
-        print("%-10s %10d %-10s %-10s %-30s" % values)
+        print("%-10s %-10d %-10s %-20s %-20s" % values)
 
 
 def process_args(args):
@@ -74,33 +78,38 @@ def process_args(args):
     transaction = Transaction()
     if args == []:
         print_usage()
-    elif args[0] == "quit":
+    elif args[0] == "quit" and len(args) == 1:
         sys.exit()
-    elif args[0] == "show":
+    elif len(args) == 1:
+        print("Please follow the format!")
+        print_usage()
+    elif args[1] == "show":
         print_transactions(transaction.show())
-    elif args[0] == "add":
-        if len(args) != 6:
+    elif args[1] == "add":
+        if len(args) <= 7:
             print_usage()
         else:
-            trans = {'itemID': args[1], 'amount': args[2],
-                     'category': args[3], 'date': args[4], 'description': args[5]}
+            trans = {'itemID': args[2], 'amount': args[3],
+                     'category': args[4], 'date': args[5], 'description': args[6]}
             rs = transaction.add(trans)
             if (rs == "error"):
+                print("Please follow the format!")
                 print_usage()
-    elif args[0] == "delete":
-        if len(args) != 1:
+    elif args[1] == "delete":
+        if len(args) != 3:
+            print("Please follow the format!")
             print_usage()
         else:
             transaction.delete(args[1])
-    elif args[0] == "summary_by_date":
+    elif args[1] == "summary_by_date":
         transaction.sumByDate()
-    elif args[0] == "summary_by_month":
+    elif args[1] == "summary_by_month":
         transaction.sumByMonth(args[1])
-    elif args[0] == "summary_by_year":
+    elif args[1] == "summary_by_year":
         transaction.sumByYear()
-    elif args[0] == "summary_by_category":
+    elif args[1] == "summary_by_category":
         transaction.sumByCate(args[1])
-    elif args[0] == "print_menu":
+    elif args[1] == "print_menu":
         print_usage()
     else:
         print(args, "is not implemented")
