@@ -8,8 +8,8 @@ It will also allow the user to read and update the database as need.
 'date',
 'description'
 
-@Author: Qiuyang Wang
-@Date: 2023-03-22
+@Author: Qiuyang Wang, Steve Wang
+@Date: 2023-03-26
 '''
 
 import sqlite3

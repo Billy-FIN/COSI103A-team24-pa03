@@ -2,8 +2,8 @@
 '''
 This program offers the user the following options and makes calls to the Transaction class to update the database.
 
-@Author: Qiuyang Wang
-@Date: 2023-03-22
+@Author: Qiuyang Wang, Steve Wang
+@Date: 2023-03-26
 '''
 
 from transaction import Transaction
@@ -61,7 +61,7 @@ def print_transactions(transactions):
     print('\n')
     print("%-10s %-10s %-10s %-10s %-30s" %
           ('item #', 'amount', 'category', 'date', 'description'))
-    print('-'*40)
+    print('-'*60)
     for item in transactions:
         # (item #, amount, category, date, description)
         date = str(item['month'])+"/"+str(item['day'])+"/"+str(item['year'])
