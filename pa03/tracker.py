@@ -11,8 +11,8 @@ import sys
 
 
 def print_usage():
-    ''' 
-    print an explanation of how to use this command 
+    '''
+    print an explanation of how to use this command
 
     @Author: Qiuyang Wang
     '''
@@ -24,7 +24,8 @@ def print_usage():
                 expected argument: none
                 example: tr show
             tr add
-                expected argument: item #, amount, category, date(in the form of MM/DD/YYYY), description, separated by space
+                #, amount, category, date(in the form of MM/DD/YYYY), description, separated by space
+                expected argument: item
                 example: tr add 1 100 food 1/1/2022 "Some food"
             tr delete
                 expected argument: item #
@@ -33,14 +34,14 @@ def print_usage():
                 expected argument: none
                 example: tr summary_by_date
             tr summary_by_month
-                expected argument: none
-                example: tr summary_by_month
+                expected argument: 11
+                example: tr summary_by_month 11
             tr summary_by_year
-                expected argument: none
-                example: tr summary_by_year
+                expected argument: year
+                example: tr summary_by_year 2023
             tr summary_by_category
-                expected argument: none
-                example: tr summary_by_category
+                expected argument: category
+                example: tr summary_by_category food
             tr print_menu
                 expected argument: none
                 example: tr print_menu
@@ -49,7 +50,7 @@ def print_usage():
 
 
 def print_transactions(transactions):
-    ''' 
+    '''
     print the transactions in a nice format
 
     @Author: Qiuyang Wang
@@ -89,8 +90,11 @@ def process_args(args):
         if len(args) <= 7:
             print_usage()
         else:
+            desc = ""
+            for i in range(6, len(args)):
+                desc += args[i] + " "
             trans = {'itemID': args[2], 'amount': args[3],
-                     'category': args[4], 'date': args[5], 'description': desc.rstrip()}
+                                 'category': args[4], 'date': args[5], 'description': desc.rstrip()}
             rs = transaction.add(trans)
             if (rs == "error"):
                 print("Please follow the format!")
@@ -100,15 +104,15 @@ def process_args(args):
             print("Please follow the format!")
             print_usage()
         else:
-            transaction.delete(args[1])
+            transaction.delete(args[2])
     elif args[1] == "summary_by_date":
-        transaction.sumByDate()
+        print_transactions(transaction.sumByDate())
     elif args[1] == "summary_by_month":
-        transaction.sumByMonth(args[1])
+        print_transactions(transaction.sumByMonth(args[2]))
     elif args[1] == "summary_by_year":
-        transaction.sumByYear()
+        print_transactions(transaction.sumByYear(args[2]))
     elif args[1] == "summary_by_category":
-        transaction.sumByCate(args[1])
+        print_transactions(transaction.sumByCate(args[2]))
     elif args[1] == "print_menu":
         print_usage()
     else:

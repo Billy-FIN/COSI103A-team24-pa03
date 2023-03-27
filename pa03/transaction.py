@@ -76,14 +76,14 @@ class Transaction():
     def sumByDate(self):
         # q = self.show()
 
-        return self.runQuery("SELECT itemID, amount, category, description FROM transactions GROUP BY date;")
+        return self.runQuery("SELECT * FROM transactions ORDER BY year, month, day ASC;", ())
         # returnQ = []
         # for entry in q:
         #     if (entry['date'][2:4] == date):
         #         returnQ.append(entry)
         # return returnQ
 
-    def sumByMonth(self):
+    def sumByMonth(self, month):
         # q = self.runQuery(
         #     "SELECT item #, amount, category, description FROM transactions where date=(?)", (date,))
         # q = self.show()
@@ -93,9 +93,9 @@ class Transaction():
         #     if (entry['date'][:2] == month):
         #         returnQ.append(entry)
         # return returnQ
-        return self.runQuery("SELECT itemID, amount, category, description FROM transactions GROUP BY month;")
+        return self.runQuery("SELECT * FROM transactions WHERE month=(?);", (month,))
 
-    def sumByYear(self):
+    def sumByYear(self, year):
         # q = self.runQuery(
         #     "SELECT item #, amount, category, description FROM transactions where date=(?)", (date,))
         # q = self.show()
@@ -104,7 +104,7 @@ class Transaction():
         #     if (entry['date'][4:] == year):
         #         returnQ.append(entry)
         # return returnQ
-        return self.runQuery("SELECT itemID, amount, category, description FROM transactions GROUP BY year;")
+        return self.runQuery("SELECT * FROM transactions WHERE year=(?);", (year,))
 
     def sumByCate(self, category):
-        return self.runQuery("SELECT itemID, amount, description FROM transactions WHERE category=(?)", (category,))
+        return self.runQuery("SELECT * FROM transactions WHERE category=(?);", (category,))
