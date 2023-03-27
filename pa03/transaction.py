@@ -16,14 +16,20 @@ import sqlite3
 import os
 
 
-def to_dict(t):
+def to_dict(tpl):
     '''
     t is a tuple (itemID, amount, category, date, description)
 
     @Author: Qiuyang Wang
     '''
-    transaction = {'itemID': t[0], 'amount': t[1],
-                   'category': t[2], 'day': t[3], 'month': t[4], 'year': t[5], 'description': t[6]}
+    transaction = {'itemID': tpl[0],
+                   'amount': tpl[1],
+                   'category': tpl[2],
+                   'day': tpl[3],
+                   'month': tpl[4],
+                   'year': tpl[5],
+                   'description': tpl[6]
+                   }
     return transaction
 
 

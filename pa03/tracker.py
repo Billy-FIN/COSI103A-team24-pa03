@@ -1,13 +1,14 @@
 #! /opt/miniconda3/bin/python3
 '''
-This program offers the user the following options and makes calls to the Transaction class to update the database.
+This program offers the user the following options and makes 
+calls to the Transaction class to update the database.
 
 @Author: Qiuyang Wang, Steve Wang
 @Date: 2023-03-26
 '''
 
-from transaction import Transaction
 import sys
+from transaction import Transaction
 
 
 def print_usage():
@@ -59,15 +60,17 @@ def print_transactions(transactions):
         print('no transaction to print')
         return
     print('\n')
-    print("%-10s %-10s %-10s %-10s %-30s" %
-          ('item #', 'amount', 'category', 'date', 'description'))
-    print('-'*60)
+    # print("%-10s %-10s %-10s %-10s %-30s" %
+    #       ('item #', 'amount', 'category', 'date', 'description'))
+    print(f"{'item #'}\t\t{'amount'}\t\t{'category'}\t{'date'}\t\t{'description'}\t")
+    print('-'*80)
     for item in transactions:
         # (item #, amount, category, date, description)
         date = str(item['month'])+"/"+str(item['day'])+"/"+str(item['year'])
         values = (item['itemID'], item['amount'],
                   item['category'], date, item['description'])
-        print("%-10s %-10d %-10s %-20s %-20s" % values)
+        print(
+            f"{values[0]}\t\t{values[1]}\t\t{values[2]}\t\t{values[3]}\t{values[4]}\t")
 
 
 def process_args(args):
@@ -95,8 +98,8 @@ def process_args(args):
                 desc += args[i] + " "
             trans = {'itemID': args[2], 'amount': args[3],
                      'category': args[4], 'date': args[5], 'description': desc.rstrip()}
-            rs = transaction.add(trans)
-            if (rs == "error"):
+            res = transaction.add(trans)
+            if res == "error":
                 print("Please follow the format!")
                 print_usage()
     elif args[1] == "delete":
@@ -106,13 +109,13 @@ def process_args(args):
         else:
             transaction.delete(args[2])
     elif args[1] == "summary_by_date":
-        print_transactions(transaction.sumByDate())
+        print_transactions(transaction.sum_by_date())
     elif args[1] == "summary_by_month":
-        print_transactions(transaction.sumByMonth(args[2]))
+        print_transactions(transaction.sum_by_month(args[2]))
     elif args[1] == "summary_by_year":
-        print_transactions(transaction.sumByYear(args[2]))
+        print_transactions(transaction.sum_by_year(args[2]))
     elif args[1] == "summary_by_category":
-        print_transactions(transaction.sumByCate(args[2]))
+        print_transactions(transaction.sum_by_cate(args[2]))
     elif args[1] == "print_menu":
         print_usage()
     else:
