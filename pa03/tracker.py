@@ -21,15 +21,23 @@ def print_usage():
                 expected argument: none
                 example: tr quit
             tr show
+                expected argument: none
+                example: tr show
             tr add
+                expected argument: item #, amount, category, date(in the form of MM/DD/YYYY), description, separated by space
+                example: tr add 1 100 food "Some food"
             tr delete
                 expected argument: item #
                 example: tr delete 1
             tr summary_by_date
+                expected argument: none
+                example: tr summary_by_date
             tr summary_by_month
+                expected argument: none
+                example: tr summary_by_month
             tr summary_by_year
-                expected argument: the year from  its date
-                example: tr delete 2023
+                expected argument: none
+                example: tr summary_by_year
             tr summary_by_category
             tr print_menu
             '''
@@ -51,7 +59,9 @@ def print_transactions(transactions):
     print('-'*40)
     for item in transactions:
         # (item #, amount, category, date, description)
-        values = tuple(item.values())
+        date = str(item['month'])+"/"+str(item['day'])+"/"+str(item['year'])
+        values = (item['itemID'], item['amount'],
+                  item['category'], date, item['description'])
         print("%-10s %10d %-10s %-10s %-30s" % values)
 
 
@@ -67,22 +77,22 @@ def process_args(args):
     elif args[0] == "quit":
         sys.exit()
     elif args[0] == "show":
-        transaction.show()
+        print_transactions(transaction.show())
     elif args[0] == "add":
         if len(args) != 6:
             print_usage()
         else:
-            trans = {'item': args[1], 'amount': args[2],
+            trans = {'itemID': args[1], 'amount': args[2],
                      'category': args[3], 'date': args[4], 'description': args[5]}
             transaction.add(trans)
     elif args[0] == "delete":
         transaction.delete(args[1])
     elif args[0] == "summary_by_date":
-        transaction.sumByDate(args[1])
+        transaction.sumByDate()
     elif args[0] == "summary_by_month":
         transaction.sumByMonth(args[1])
     elif args[0] == "summary_by_year":
-        transaction.sumByYear(args[1])
+        transaction.sumByYear()
     elif args[0] == "summary_by_category":
         transaction.sumByCate(args[1])
     elif args[0] == "print_menu":
