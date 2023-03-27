@@ -29,7 +29,7 @@ def toDict(t):
 
 class Transaction():
     """
-    @Author: Qiuyang Wang
+    @Author: Qiuyang Wang, Steve Wang
     """
 
     def __init__(self):
@@ -57,16 +57,19 @@ class Transaction():
         return self.runQuery("DELETE FROM transactions WHERE itemID=(?);", (itemID,))
 
     def show(self):
-        # s = ""
-        # q = self.runQuery("SELECT * FROM transactions", ())
-        # for entry in q:
-        #     date = entry['month']+entry['date']+entry['year']
-        #     s += entry['itemID'] + "\t" + entry['amount']+"\t" + \
-        #         entry['category']+"\t"+date+"\t"+entry['description']+"\n"
-        # print_prompt(s)
+        '''
+            returns all the transactions
+
+            @Author: Steve Wang
+        '''
         return self.runQuery("SELECT * FROM transactions;", ())
 
     def add(self, item):
+        '''
+            adds a transaction to the database
+
+            @Author: Steve Wang
+        '''
         dateLs = item['date'].split("/")
         if (len(dateLs) < 3):
             return "error"
@@ -74,37 +77,33 @@ class Transaction():
             return self.runQuery("INSERT INTO transactions VALUES(?,?,?,?,?,?,?);", (item['itemID'], item['amount'], item['category'], int(dateLs[1]), int(dateLs[0]), int(dateLs[2]), item['description'],))
 
     def sumByDate(self):
-        # q = self.show()
+        '''
+            returns all the transactions grouped by day
 
+            @Author: Quyang Wang
+        '''
         return self.runQuery("SELECT * FROM transactions ORDER BY year, month, day ASC;", ())
-        # returnQ = []
-        # for entry in q:
-        #     if (entry['date'][2:4] == date):
-        #         returnQ.append(entry)
-        # return returnQ
 
     def sumByMonth(self, month):
-        # q = self.runQuery(
-        #     "SELECT item #, amount, category, description FROM transactions where date=(?)", (date,))
-        # q = self.show()
-        # print(q[0])
-        # returnQ = []
-        # for entry in q:
-        #     if (entry['date'][:2] == month):
-        #         returnQ.append(entry)
-        # return returnQ
+        '''
+            returns all the transactions grouped by month
+
+            @Author: Steve Wang
+        '''
         return self.runQuery("SELECT * FROM transactions WHERE month=(?);", (month,))
 
     def sumByYear(self, year):
-        # q = self.runQuery(
-        #     "SELECT item #, amount, category, description FROM transactions where date=(?)", (date,))
-        # q = self.show()
-        # returnQ = []
-        # for entry in q:
-        #     if (entry['date'][4:] == year):
-        #         returnQ.append(entry)
-        # return returnQ
+        '''
+            returns all the transactions grouped by year
+
+            @Author: Steve Wang
+        '''
         return self.runQuery("SELECT * FROM transactions WHERE year=(?);", (year,))
 
     def sumByCate(self, category):
+        '''
+            returns all the transactions grouped by category
+
+            @Author: Steve Wang
+        '''
         return self.runQuery("SELECT * FROM transactions WHERE category=(?);", (category,))

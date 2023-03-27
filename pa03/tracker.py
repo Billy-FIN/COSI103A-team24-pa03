@@ -74,7 +74,7 @@ def process_args(args):
     '''
     examine args and make appropriate calls to Transaction
 
-    @Author: Qiuyang Wang
+    @Author: Qiuyang Wang, Steve Wang
     '''
     transaction = Transaction()
     if args == []:
@@ -94,7 +94,7 @@ def process_args(args):
             for i in range(6, len(args)):
                 desc += args[i] + " "
             trans = {'itemID': args[2], 'amount': args[3],
-                                 'category': args[4], 'date': args[5], 'description': desc.rstrip()}
+                     'category': args[4], 'date': args[5], 'description': desc.rstrip()}
             rs = transaction.add(trans)
             if (rs == "error"):
                 print("Please follow the format!")
