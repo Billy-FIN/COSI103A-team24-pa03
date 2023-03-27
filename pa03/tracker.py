@@ -112,19 +112,19 @@ def process_args(args):
     elif args[1] == "summary_by_date":
         print_transactions(transaction.sum_by_date())
     elif args[1] == "summary_by_month":
-        if len(args) < 3:
+        if len(args) != 3:
             print("Please follow the format!")
             print_usage()
         else:
             print_transactions(transaction.sum_by_month(args[2]))
     elif args[1] == "summary_by_year":
-        if len(args) < 3:
+        if len(args) != 3:
             print("Please follow the format!")
             print_usage()
         else:
             print_transactions(transaction.sum_by_year(args[2]))
     elif args[1] == "summary_by_category":
-        if len(args) < 3:
+        if len(args) != 3:
             print("Please follow the format!")
             print_usage()
         else:
