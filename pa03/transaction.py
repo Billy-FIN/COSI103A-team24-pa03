@@ -16,7 +16,7 @@ import sqlite3
 import os
 
 
-def toDict(t):
+def to_dict(t):
     '''
     t is a tuple (itemID, amount, category, date, description)
 
@@ -33,28 +33,29 @@ class Transaction():
     """
 
     def __init__(self):
-        self.runQuery('''CREATE TABLE IF NOT EXISTS transactions
-                    (itemID text, amount int, category text, day int, month int, year int, description text)''', ())
+        self.run_query('''CREATE TABLE IF NOT EXISTS transactions
+                    (itemID text, amount int, category text, day int, 
+                    month int, year int, description text)''', ())
 
-    def runQuery(self, query, tuple):
+    def run_query(self, query, tpl):
         """
         @Author: Qiuyang Wang
         """
         con = sqlite3.connect('transactions.db')
         cur = con.cursor()
-        cur.execute(query, tuple)
+        cur.execute(query, tpl)
         tuples = cur.fetchall()
         con.commit()
         con.close()
-        return [toDict(t) for t in tuples]
+        return [to_dict(t) for t in tuples]
 
-    def delete(self, itemID):
+    def delete(self, item_id):
         """
         delete a transaction by a given itemID
 
         @Author: Qiuyang Wang
         """
-        return self.runQuery("DELETE FROM transactions WHERE itemID=(?);", (itemID,))
+        return self.run_query("DELETE FROM transactions WHERE itemID=(?);", (item_id,))
 
     def show(self):
         '''
@@ -62,7 +63,7 @@ class Transaction():
 
             @Author: Steve Wang
         '''
-        return self.runQuery("SELECT * FROM transactions;", ())
+        return self.run_query("SELECT * FROM transactions;", ())
 
     def add(self, item):
         '''
@@ -70,40 +71,47 @@ class Transaction():
 
             @Author: Steve Wang
         '''
-        dateLs = item['date'].split("/")
-        if (len(dateLs) < 3):
+        date_ls = item['date'].split("/")
+        if len(date_ls) < 3:
             return "error"
-        else:
-            return self.runQuery("INSERT INTO transactions VALUES(?,?,?,?,?,?,?);", (item['itemID'], item['amount'], item['category'], int(dateLs[1]), int(dateLs[0]), int(dateLs[2]), item['description'],))
+        return self.run_query("INSERT INTO transactions VALUES(?,?,?,?,?,?,?);",
+                              (item['itemID'],
+                               item['amount'],
+                               item['category'],
+                               int(date_ls[1]),
+                               int(date_ls[0]),
+                               int(date_ls[2]),
+                               item['description'],
+                               ))
 
-    def sumByDate(self):
+    def sum_by_date(self):
         '''
             returns all the transactions grouped by day
 
             @Author: Quyang Wang
         '''
-        return self.runQuery("SELECT * FROM transactions ORDER BY year, month, day ASC;", ())
+        return self.run_query("SELECT * FROM transactions ORDER BY year, month, day ASC;", ())
 
-    def sumByMonth(self, month):
+    def sum_by_month(self, month):
         '''
             returns all the transactions grouped by month
 
             @Author: Steve Wang
         '''
-        return self.runQuery("SELECT * FROM transactions WHERE month=(?);", (month,))
+        return self.run_query("SELECT * FROM transactions WHERE month=(?);", (month,))
 
-    def sumByYear(self, year):
+    def sum_by_year(self, year):
         '''
             returns all the transactions grouped by year
 
             @Author: Steve Wang
         '''
-        return self.runQuery("SELECT * FROM transactions WHERE year=(?);", (year,))
+        return self.run_query("SELECT * FROM transactions WHERE year=(?);", (year,))
 
-    def sumByCate(self, category):
+    def sum_by_cate(self, category):
         '''
             returns all the transactions grouped by category
 
             @Author: Steve Wang
         '''
-        return self.runQuery("SELECT * FROM transactions WHERE category=(?);", (category,))
+        return self.run_query("SELECT * FROM transactions WHERE category=(?);", (category,))
