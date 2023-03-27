@@ -82,7 +82,7 @@ def process_args(args):
     transaction = Transaction()
     if args == []:
         print_usage()
-    elif args[0] == "quit" and len(args) == 1:
+    elif args[1] == "quit" and len(args) == 2:
         sys.exit()
     elif len(args) == 1:
         print("Please follow the format!")
@@ -91,6 +91,7 @@ def process_args(args):
         print_transactions(transaction.show())
     elif args[1] == "add":
         if len(args) <= 7:
+            print("Please follow the format!")
             print_usage()
         else:
             desc = ""
@@ -111,11 +112,23 @@ def process_args(args):
     elif args[1] == "summary_by_date":
         print_transactions(transaction.sum_by_date())
     elif args[1] == "summary_by_month":
-        print_transactions(transaction.sum_by_month(args[2]))
+        if len(args) < 3:
+            print("Please follow the format!")
+            print_usage()
+        else:
+            print_transactions(transaction.sum_by_month(args[2]))
     elif args[1] == "summary_by_year":
-        print_transactions(transaction.sum_by_year(args[2]))
+        if len(args) < 3:
+            print("Please follow the format!")
+            print_usage()
+        else:
+            print_transactions(transaction.sum_by_year(args[2]))
     elif args[1] == "summary_by_category":
-        print_transactions(transaction.sum_by_cate(args[2]))
+        if len(args) < 3:
+            print("Please follow the format!")
+            print_usage()
+        else:
+            print_transactions(transaction.sum_by_cate(args[2]))
     elif args[1] == "print_menu":
         print_usage()
     else:
