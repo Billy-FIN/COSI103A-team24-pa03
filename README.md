@@ -7,6 +7,7 @@ This is a git repository which contains the code of programming assignment 03 (p
  - Shentong Rao https://github.com/Shentongr
 
 ## Transcript:
+"""
 PS F:\Qiongyue\study\Brandeis University\Spring 2023\CS 103A\cosi103a-team24-pa03>  & 'C:\Users\穹月\AppData\Local\Programs\Python\Python311\python.exe' 'c:\Users\穹月\.vscode\extensions\ms-python.python-2023.4.1\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher' '52830' '--' 'f:\Qiongyue\study\Brandeis University\Spring 2023\CS 103A\cosi103a-team24-pa03\pa03\tracker.py'
 usage:
             tr quit
@@ -185,3 +186,4 @@ item #     amount     category   date       description
 
 command> quit
 PS F:\Qiongyue\study\Brandeis University\Spring 2023\CS 103A\cosi103a-team24-pa03> 
+"""
