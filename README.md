@@ -34,7 +34,7 @@ Your code has been rated at 9.70/10 (previous run: 9.70/10, +0.00)
 ![console log 2](/img/console2.JPG)
 ![console log 3](/img/console3.JPG)
 
-## this is running for pytest
+## Running Pytest
 
 pytest -v
 ====================================================================================== test session starts ======================================================================================
