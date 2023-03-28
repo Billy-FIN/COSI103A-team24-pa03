@@ -18,7 +18,7 @@ def print_usage():
     @Author: Qiuyang Wang
     '''
     print('''usage:
-            tr quit
+            quit
                 expected argument: none
                 example: quit
             tr show
@@ -82,7 +82,7 @@ def process_args(args):
     transaction = Transaction()
     if args == []:
         print_usage()
-    elif args[1] == "quit" and len(args) == 2:
+    elif args[0] == "quit" and len(args) == 1:
         sys.exit()
     elif len(args) == 1:
         print("Please follow the format!")
