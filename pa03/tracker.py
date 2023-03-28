@@ -90,7 +90,7 @@ def process_args(args):
     elif args[1] == "show":
         print_transactions(transaction.show())
     elif args[1] == "add":
-        if len(args) <= 7:
+        if len(args) < 7:
             print("Please follow the format!")
             print_usage()
         else:
